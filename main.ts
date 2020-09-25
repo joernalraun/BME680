@@ -106,14 +106,12 @@ namespace BME680 {
     let e2 = getreg(0xE2) >> 4
     let par_h1 = (getInt8LE(0xE3) << 4) | e2
     let par_h2 = (getInt8LE(0xE1) << 4) | e2
-    serial.writeLine("e2: " + e2 + "/h1: " + par_h1 + "/h2: " + par_h2)
     let par_h3 = getInt8LE(0xE4)
     let par_h4 = getInt8LE(0xE5)
     let par_h5 = getInt8LE(0xE6)
     let par_h6 = getreg(0xE7)
     let par_h7 = getInt8LE(0xE8)
-    serial.writeLine("h3: " + par_h3 + "/h4: " + par_h4 + "/h5: " + par_h5 + "/h6: " + par_h6 + "/h7: " + par_h7)
-
+    
     let par_g1 = getInt8LE(0xED)
     let par_g2 = getInt16LE(0xEB)
     let par_g3 = getInt8LE(0xEE)
@@ -263,13 +261,14 @@ namespace BME680 {
         let gas_2b = getreg(0x2B)
         let gas_adc = (getreg(0x2A) << 2) | (gas_2b >> 6)
         let gas_range = gas_2b & 0x0F
-        let range_switching_error = getreg(0x04) >> 4 // Mask with 0xF0 and shift >> 4 ??
+        let range_switching_error = getreg(0x04) >> 4
+        serial.writeLine("gas_adc: " + gas_adc + "/gas_range : " + gas_range + "/sw_error: " + range_switching_error)
         // Convert gas data
         var1 = (((1340 + (5 * range_switching_error)) * (const_array1_int[gas_range])) >> 16)
         var2 = (gas_adc << 15) - (1 << 24) + var1
         let gas_res = ((((const_array2_int[gas_range]  * var1) >> 9) + (var2 >> 1)) / var2)
         G = gas_res
-        serial.writeLine("Gas: " + gas_res)
+        serial.writeLine("Gas: " + gas_res + "/var1: " + var1 + "/var2: " + var2)
     }
 
     /**
