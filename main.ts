@@ -115,25 +115,6 @@ namespace BME680 {
     let res_heat_range = (getreg(0x02) & 0x30) >> 4
 
 
-    // Set oversampling H to 1x
-    setreg(0x72, 0x01)
-    // Set oversampling T to 2x and P to 16x
-    setreg(0x74, 0x54)
-    // Gas setup
-    // Use 100ms heat time
-    setreg(0x64, 0x59)
-    // Set heat set point to 300 deg. C
-    setHeatConfig(300)
-    // Set to use heat time 0
-    setreg(0x71, 0x00)
-    // Enable gas reading
-    setreg(0x71, 0x10)
-    // Trigger single measurement in force mode
-    setreg(0x74, getreg(0x74) | 0x01)
-
-    // TODO now need to wait a certain period of time and check that the measurement is completed before continuing (or somehow block
-    // TODO calls to "get()" until the measurement is complete
-    
     /* BME280 code
     let dig_T1 = getUInt16LE(0x88)
     let dig_T2 = getInt16LE(0x8A)
@@ -164,6 +145,28 @@ namespace BME680 {
     let G = 0
 
     function get(): void {
+        serial.writeLine("get()")
+
+    // Set oversampling H to 1x
+    setreg(0x72, 0x01)
+    // Set oversampling T to 2x and P to 16x
+    setreg(0x74, 0x54)
+    // Gas setup
+    // Use 100ms heat time
+    setreg(0x64, 0x59)
+    // Set heat set point to 300 deg. C
+    setHeatConfig(300)
+    // Set to use heat time 0
+    setreg(0x71, 0x00)
+    // Enable gas reading
+    setreg(0x71, 0x10)
+    // Trigger single measurement in force mode
+    setreg(0x74, getreg(0x74) | 0x01)
+
+    // TODO now need to wait a certain period of time and check that the measurement is completed before continuing (or somehow block
+    // TODO calls to "get()" until the measurement is complete
+    basic.pause(500)
+    
         // BME680 stuff
         // Get raw temperature value
         let temp_adc = (getreg(0x22) << 12) | (getreg(0x23) << 4) | (getreg(0x24) >> 4)
@@ -173,6 +176,7 @@ namespace BME680 {
         let var3 = ((((var1 >> 1) * (var1 >> 1)) >> 12) * (par_t3 << 4)) >> 14
         let t_fine = var2 + var3
         let temp_comp = ((t_fine * 5) + 128) >> 8
+        serial.writeLine("Temp: " + temp_comp)
         T = Math.idiv(temp_comp, 100)
     /* BME280 code
         let adc_T = (getreg(0xFA) << 12) + (getreg(0xFB) << 4) + (getreg(0xFC) >> 4)
@@ -204,6 +208,7 @@ namespace BME680 {
         var3 = ((press_comp >> 8) * (press_comp >> 8) * (press_comp >> 8) * par_p10) >> 17
         press_comp = (press_comp) +  ((var1 + var2 + var3 + (par_p7 << 7)) >> 4)
         P = press_comp
+        serial.writeLine("Pressure: " + press_comp)
 
     /* BME280 code
         var1 = (t >> 1) - 64000
@@ -234,6 +239,7 @@ namespace BME680 {
         let hum_comp = (var3 + var6) >> 12
         hum_comp = (((var3 + var6) >> 10) * 1000) >> 12
         H = hum_comp
+        serial.writeLine("Humidity: " + hum_comp)
 
     /* BME 280 code
         let adc_H = (getreg(0xFD) << 8) + getreg(0xFE)
@@ -255,6 +261,7 @@ namespace BME680 {
         var2 = (gas_adc << 15) - (1 << 24) + var1
         let gas_res = ((((const_array2_int[gas_range]  * var1) >> 9) + (var2 >> 1)) / var2)
         G = gas_res
+        serial.writeLine("Gas: " + gas_res)
     }
 
     /**
