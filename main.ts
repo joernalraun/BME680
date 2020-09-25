@@ -264,9 +264,17 @@ namespace BME680 {
         let range_switching_error = getreg(0x04) >> 4
         serial.writeLine("gas_adc: " + gas_adc + "/gas_range : " + gas_range + "/sw_error: " + range_switching_error)
         // Convert gas data
+        // testing
+        let arg1 = 2147483647
+        let arg2 = 64000000
+        /*
         var1 = (((1340 + (5 * range_switching_error)) * (const_array1_int[gas_range])) >> 16)
         var2 = (gas_adc << 15) - (1 << 24) + var1
         let gas_res = ((((const_array2_int[gas_range]  * var1) >> 9) + (var2 >> 1)) / var2)
+        */
+        var1 = (((1340 + (5 * range_switching_error)) * arg1) >> 16)
+        var2 = (gas_adc << 15) - (1 << 24) + var1
+        let gas_res = ((((arg2  * var1) >> 9) + (var2 >> 1)) / var2)
         G = gas_res
         serial.writeLine("Gas: " + gas_res + "/var1: " + var1 + "/var2: " + var2)
     }
