@@ -171,8 +171,8 @@ namespace BME680 {
     // TODO now need to wait a certain period of time and check that the measurement is completed before continuing (or somehow block
     // TODO calls to "get()" until the measurement is complete
     let i = 0;
-    for (i = 0; i < 10; i++) {
-        basic.pause(100)
+    for (i = 0; i < 30; i++) {
+        basic.pause(20)
         serial.writeLine("status: " + getreg(0x1D))
     }
     
