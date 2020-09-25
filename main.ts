@@ -152,29 +152,34 @@ namespace BME680 {
     function get(): void {
         serial.writeLine("get()")
 
-    // Set oversampling H to 1x
-    setreg(0x72, 0x01)
-    // Set oversampling T to 2x and P to 16x
-    setreg(0x74, 0x54)
-    // Gas setup
-    // Use 100ms heat time
-    setreg(0x64, 0x59)
-    // Set heat set point to 300 deg. C
-    setHeatConfig(300)
-    // Set to use heat time 0
-    setreg(0x71, 0x00)
-    // Enable gas reading
-    setreg(0x71, 0x10)
-    // Trigger single measurement in force mode
-    setreg(0x74, getreg(0x74) | 0x01)
+        // Set oversampling H to 1x
+        setreg(0x72, 0x01)
+        // Set oversampling T to 2x and P to 16x
+        setreg(0x74, 0x54)
+        // Gas setup
+        // Use 100ms heat time
+        setreg(0x64, 0x59)
+        // Set heat set point to 300 deg. C
+        setHeatConfig(300)
+        // Set to use heat time 0
+        setreg(0x71, 0x00)
+        // Enable gas reading
+        setreg(0x71, 0x10)
+        // Trigger single measurement in force mode
+        setreg(0x74, getreg(0x74) | 0x01)
 
-    // TODO now need to wait a certain period of time and check that the measurement is completed before continuing (or somehow block
-    // TODO calls to "get()" until the measurement is complete
-    let i = 0;
-    for (i = 0; i < 30; i++) {
-        basic.pause(20)
-        serial.writeLine("status: " + getreg(0x1D))
-    }
+        // Now wait until the measurement is completed and the values area available for reading
+        // Read the status register every 50msec. Give up after 500msec
+        let i = 0;
+        for (i = 0; i < 10; i++) {
+            basic.pause(50)
+            let eas_status = getreg(0x1D)
+            serial.writeLine("status: " + eas_status)
+            if ((eas_status & 0x80) != 0) {
+                // New data bit is set, stop waiting
+                break
+            }
+        }
     
         // BME680 stuff
         // Get raw temperature value
