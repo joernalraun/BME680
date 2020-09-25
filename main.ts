@@ -170,7 +170,11 @@ namespace BME680 {
 
     // TODO now need to wait a certain period of time and check that the measurement is completed before continuing (or somehow block
     // TODO calls to "get()" until the measurement is complete
-    basic.pause(500)
+    let i = 0;
+    for (i = 0; i < 10; i++) {
+        basic.pause(100)
+        serial.writeLine("status: " + getreg(0x1D))
+    }
     
         // BME680 stuff
         // Get raw temperature value
@@ -259,6 +263,11 @@ namespace BME680 {
     */
         // Get gas data value
         let gas_2b = getreg(0x2B)
+        serial.writeLine("0x2b: " + gas_2b)
+        // Check status of reading
+        let gas_valid = (gas_2b & 0x20) != 0
+        let heat_stab = (gas_2b & 0x10) != 0
+        serial.writeLine("gas_valid: " + gas_valid + "/heat_stab: " + heat_stab)
         let gas_adc = (getreg(0x2A) << 2) | (gas_2b >> 6)
         let gas_range = gas_2b & 0x0F
         let range_switching_error = getreg(0x04) >> 4
@@ -274,7 +283,6 @@ namespace BME680 {
         */
         let fvar1 = ((1340.0 + (5 * range_switching_error)) * arg1)
         serial.writeLine("var1: " + fvar1)
-        let i = 0;
         for (i = 0; i < 16; i++) {
             fvar1 = fvar1 / 2.0
             serial.writeLine("var1: " + fvar1)
