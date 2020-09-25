@@ -230,6 +230,7 @@ namespace BME680 {
     */
         // Get humidity value
         let hum_adc = getInt16LE(0x25)
+        serial.writeLine("hum_adc: " + hum_adc + ", temp_scaled: " + temp_comp)
         // Convert humidity value
         let temp_scaled = temp_comp
         var1 = hum_adc - (par_h1 << 4) - (((temp_scaled * par_h3) / 100) >> 1)
