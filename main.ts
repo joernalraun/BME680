@@ -276,7 +276,7 @@ namespace BME680 {
         serial.writeLine("var1: " + var1)
         let i = 0;
         for (i = 0; i < 16; i++) {
-            var1 = var1 >> 1
+            var1 = var1 >>> 1
             serial.writeLine("var1: " + var1)
         }
         var2 = (gas_adc << 15) - (1 << 24) + var1
