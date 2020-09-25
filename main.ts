@@ -239,8 +239,7 @@ namespace BME680 {
         let var4 = ((par_h6 << 7) + ((temp_scaled * par_h7) / 100)) >> 4
         let var5 = ((var3 >> 14) * (var3 >> 14)) >> 10
         let var6 = (var4 * var5) >> 1
-        let hum_comp = (var3 + var6) >> 12
-        hum_comp = (((var3 + var6) >> 10) * 1000) >> 12
+        let hum_comp = (((var3 + var6) >> 10) * 1000) >> 12
         H = hum_comp
         serial.writeLine("Humidity: " + hum_comp)
 
