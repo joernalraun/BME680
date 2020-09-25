@@ -60,6 +60,11 @@ namespace BME680 {
         return pins.i2cReadNumber(BME680_I2C_ADDR, NumberFormat.Int16LE);
     }
 
+    function getUInt16BE(reg: number): number {
+        pins.i2cWriteNumber(BME680_I2C_ADDR, reg, NumberFormat.UInt8BE);
+        return pins.i2cReadNumber(BME680_I2C_ADDR, NumberFormat.UInt16BE);
+    }
+
     function setHeatConfig(target_temp: number): void {
         // Assume 25 degrees C is ambient temp
         let amb_temp = 25
@@ -229,7 +234,7 @@ namespace BME680 {
         P = _p + ((var1 + var2 + dig_P7) >> 4)
     */
         // Get humidity value
-        let hum_adc = getUInt16LE(0x25)
+        let hum_adc = getUInt16BE(0x26)
         serial.writeLine("0x25: " + getreg(0x25) + "/0x26: " + getreg(0x26))
         serial.writeLine("hum_adc: " + hum_adc + ", temp_scaled: " + temp_comp)
         // Convert humidity value
