@@ -265,24 +265,24 @@ namespace BME680 {
         serial.writeLine("gas_adc: " + gas_adc + "/gas_range : " + gas_range + "/sw_error: " + range_switching_error)
         // Convert gas data
         // testing
-        let arg1 = 2147483647
-        let arg2 = 64000000
+        let arg1 = 2147483647.0
+        let arg2 = 64000000.0
         /*
         var1 = (((1340 + (5 * range_switching_error)) * (const_array1_int[gas_range])) >> 16)
         var2 = (gas_adc << 15) - (1 << 24) + var1
         let gas_res = ((((const_array2_int[gas_range]  * var1) >> 9) + (var2 >> 1)) / var2)
         */
-        var1 = ((1340 + (5 * range_switching_error)) * arg1)
-        serial.writeLine("var1: " + var1)
+        let fvar1 = ((1340.0 + (5 * range_switching_error)) * arg1)
+        serial.writeLine("var1: " + fvar1)
         let i = 0;
         for (i = 0; i < 16; i++) {
-            var1 = var1 >>> 1
-            serial.writeLine("var1: " + var1)
+            fvar1 = fvar1 / 2.0
+            serial.writeLine("var1: " + fvar1)
         }
-        var2 = (gas_adc << 15) - (1 << 24) + var1
-        let gas_res = ((((arg2  * var1) >> 9) + (var2 >> 1)) / var2)
+        let fvar2 = (gas_adc << 15) - (1 << 24) + fvar1
+        let gas_res = ((((arg2  * fvar1) >> 9) + (fvar2 >> 1)) / fvar2)
         G = gas_res
-        serial.writeLine("Gas: " + gas_res + "/var1: " + var1 + "/var2: " + var2)
+        serial.writeLine("Gas: " + gas_res + "/var1: " + fvar1 + "/var2: " + fvar2)
     }
 
     /**
