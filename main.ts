@@ -261,7 +261,7 @@ namespace BME680 {
     */
         // Get gas data value
         let gas_2b = getreg(0x2B)
-        let gas_adc = (getInt16LE(0x2A) << 2) | (gas_2b >> 6)
+        let gas_adc = (getreg(0x2A) << 2) | (gas_2b >> 6)
         let gas_range = gas_2b & 0x0F
         let range_switching_error = getreg(0x04) >> 4 // Mask with 0xF0 and shift >> 4 ??
         // Convert gas data
