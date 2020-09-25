@@ -101,11 +101,13 @@ namespace BME680 {
     let e2 = getreg(0xE2) >> 4
     let par_h1 = (getInt8LE(0xE3) << 4) | e2
     let par_h2 = (getInt8LE(0xE1) << 4) | e2
+    serial.writeLine("e2: " + e2 + "/h1: " + par_h1 + "/h2: " + par_h2)
     let par_h3 = getInt8LE(0xE4)
     let par_h4 = getInt8LE(0xE5)
     let par_h5 = getInt8LE(0xE6)
     let par_h6 = getreg(0xE7)
     let par_h7 = getInt8LE(0xE8)
+    serial.writeLine("h3: " + par_h3 + "/h4: " + par_h4 + "/h5: " + par_h5 + "/h6: " + par_h6 + "/h7: " + par_h7)
 
     let par_g1 = getInt8LE(0xED)
     let par_g2 = getInt16LE(0xEB)
