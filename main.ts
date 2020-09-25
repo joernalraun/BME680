@@ -274,7 +274,7 @@ namespace BME680 {
         */
         var1 = ((1340 + (5 * range_switching_error)) * arg1)
         serial.writeLine("var1: " + var1)
-        var1 = var1 >> 16
+        var1 = var1 >>> 16
         serial.writeLine("var1: " + var1)
         var2 = (gas_adc << 15) - (1 << 24) + var1
         let gas_res = ((((arg2  * var1) >> 9) + (var2 >> 1)) / var2)
