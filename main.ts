@@ -306,8 +306,8 @@ namespace BME680 {
         let gas_res = ((((const_array2_int[gas_range] * fvar1) >> 9) + (fvar2 >> 1)) / fvar2)
         */
         let xxx = (const_array2_int[gas_range] * fvar1)
-        let yyy = xxx >> 9
-        let zzz = fvar2 >> 1
+        let yyy = xxx / 512.0
+        let zzz = fvar2 / 2.0
         let gas_res = (yyy + zzz) / fvar2
         serial.writeLine("xxx: " + xxx + ",yyy: " + yyy + ",zzz: " + zzz)
         //let gas_res = ((((const_array2_int[gas_range] * fvar1) >> 9) + (fvar2 >> 1)) / fvar2)
