@@ -7,6 +7,7 @@
 
 enum BME680_I2C_ADDRESS {
     //% block="0x76"
+    
     ADDR_0x76 = 0x76,
     //% block="0x77"
     ADDR_0x77 = 0x77
@@ -75,6 +76,10 @@ namespace BME680 {
         let var5 = (131 * res_heat_val) + 65536
         let res_heat_x100 = (((var4 / var5) - 250) * 34)
         let res_heat_x = ((res_heat_x100 + 50) / 100)
+        serial.writeLine("setheat v1: " + var1 + ",v2: " + var2 +
+                ",v3: " + var3 + ",v4: " + var4 + ",v5: " + var5)
+        serial.writeLine("res_heat_x100: " + res_heat_x100 +
+                ", res_heat_x: " + res_heat_x)
         // Set the value in res_heat_0
         setreg(0x5A, res_heat_x)
     }
