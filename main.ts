@@ -302,7 +302,16 @@ namespace BME680 {
         }
         */
         let fvar2 = (gas_adc << 15) - (1 << 24) + fvar1
+        /*
         let gas_res = ((((const_array2_int[gas_range] * fvar1) >> 9) + (fvar2 >> 1)) / fvar2)
+        */
+        let xxx = (const_array2_int[gas_range] * fvar1)
+        let yyy = xxx >> 9
+        let zzz = fvar2 >> 1
+        let gas_res = (yyy + zzz) / fvar2
+        serial.writeLine("xxx: " + xxx + ",yyy: " + yyy + ",zzz: " + zzz)
+        //let gas_res = ((((const_array2_int[gas_range] * fvar1) >> 9) + (fvar2 >> 1)) / fvar2)
+        
         G = gas_res
         serial.writeLine("Gas: " + gas_res + "/var1: " + fvar1 + "/var2: " + fvar2)
     }
