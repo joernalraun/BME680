@@ -76,6 +76,7 @@ namespace BME680 {
         let var5 = (131 * res_heat_val) + 65536
         let res_heat_x100 = (((var4 / var5) - 250) * 34)
         let res_heat_x = ((res_heat_x100 + 50) / 100)
+        serial.writeLine("setheat g1: " + par_g1 + ",g2: " + par_g2 + ",g3: " + par_g3)
         serial.writeLine("setheat v1: " + var1 + ",v2: " + var2 +
                 ",v3: " + var3 + ",v4: " + var4 + ",v5: " + var5)
         serial.writeLine("res_heat_x100: " + res_heat_x100 +
