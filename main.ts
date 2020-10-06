@@ -69,7 +69,7 @@ namespace BME680 {
     function setHeatConfig(target_temp: number): void {
         // Assume 25 degrees C is ambient temp
         let amb_temp = 25
-        let var1 = ((amb_temp * par_g3) / 10) << 8
+        let var1 = ((amb_temp * par_g3) / 1000) << 8
         let var2 = (par_g1 + 784) * (((((par_g2 + 154009) * target_temp * 5) / 100) + 3276800) / 10)
         let var3 = var1 + (var2 >> 1)
         let var4 = (var3 / (res_heat_range + 4))
