@@ -1,19 +1,18 @@
 {
-    "name": "apple",
-    "description": "",
+    "name": "BME680",
+    "version": "0.1.0",
+    "description": "A Microsoft MakeCode package for the Bosch Sensortec BME680 sensor",
     "dependencies": {
         "core": "*",
         "radio": "*"
     },
     "files": [
+        "README.md",
         "main.ts",
-        "README.md"
+        "_locales/de/BME680-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"
     ],
-    "supportedTargets": [
-        "microbit"
-    ],
-    "preferredEditor": "tsprj"
+    "public": true
 }

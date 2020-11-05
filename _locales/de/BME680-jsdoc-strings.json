@@ -1,0 +1,17 @@
+{
+    "{id:category}BME680": "BME680",
+    "BME680.BME680_SET_ADDRESS|block": "I2C-Adresse:",
+    "BME680.TemperatureHigherThan|block": "Temperatur höher als:",
+    "BME680.TemperatureBelowThan|block": "Temperatur niedriger als:",
+    "BME680.HumidityHigherThan|block": "Feuchtigkeit höher als:",
+    "BME680.HumidityBelowThan|block": "Feuchtigkeit niedriger als:",
+    "BME680.PressureHigherThan|block": "Luftdruck höher als:",
+    "BME680.PressureBelowThan|block": "Luftdruck niedriger als:",
+    "BME680.Dewpoint|block": "Taupunkt",
+    "BME680.BME680_POWER_OFF|block": "Sensor Deaktivieren",
+    "BME680.BME680_POWER_ON|block": "Sensor Aktivieren",
+    "BME680.BME680_GET_GAS|block": "Gaswert (VCO)",
+    "BME680.BME680_GET_HUMIDITY|block": "Feuchtigkeit",
+    "BME680.BME680_GET_TEMPERATURE|block": "Temperatur",
+    "BME680.BME680_GET_PRESSURE|block": "Luftdruck",
+}

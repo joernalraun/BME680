@@ -1,7 +1,7 @@
 makecode:
-  target: microbit
-  platform: microbit
-  home_url: https://makecode.microbit.org/
+  target: microbit, calliope
+  platform: microbit, callipe
+  home_url: https://makecode.calliope.cc
 theme: jekyll-theme-slate
 include:
   - assets
