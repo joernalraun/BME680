@@ -1,5 +1,5 @@
 /**
- * makecode BME680 gas sensor Package from https://github.com/dwass/apple.
+ * makecode BME680 gas sensor Package.
  * Based on BME280 sensor package
  * From microbit/micropython Chinese community.
  * http://www.micropython.org.cn

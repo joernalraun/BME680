@@ -5,10 +5,5 @@
         "outDir": "built",
         "rootDir": "."
     },
-    "exclude": [
-        "pxt_modules/**/*test.ts"
-    ],
-    "dependencies": {
-        "pxt-microbit": "^3.1.27"
-    }
+    "exclude": ["pxt_modules/**/*test.ts"]
 }
