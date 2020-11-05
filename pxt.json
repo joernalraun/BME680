@@ -7,12 +7,15 @@
         "radio": "*"
     },
     "files": [
-        "README.md",
         "main.ts",
+        "README.md",
         "_locales/de/BME680-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"
     ],
-    "public": true
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
 }

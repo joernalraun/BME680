@@ -1,5 +1,4 @@
 {
-    "{id:category}BME680": "BME680",
     "BME680.BME680_SET_ADDRESS|block": "I2C-Adresse:",
     "BME680.TemperatureHigherThan|block": "Temperatur höher als:",
     "BME680.TemperatureBelowThan|block": "Temperatur niedriger als:",
